@@ -1,0 +1,40 @@
+import React from 'react'
+import instance from '../instance';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import './Banner.css'
+
+function Banner({ fetchUrl }) {
+    console.log(fetchUrl);
+
+    const base_url="https://image.tmdb.org/t/p/original"
+    const [movieDetails,setMovieDetails] = useState([]);
+
+    const fetchData = async () => {
+        const response = await instance.get(fetchUrl);
+        const { data } = response;
+        setMovieDetails(data.results[Math.floor(Math.random()*data.results.length)])
+
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    return (
+        <div>
+            <div style={{ height: "600px",backgroundPosition:"center",backgroundSize:"cover", backgroundImage: `url(${base_url}${movieDetails.backdrop_path})` }}>
+
+                    <div className="banner_content">
+                        <h1 style={{color:"white",background:"transparent",fontSize:"3.5rem",marginBottom:"10px"}}>{movieDetails.name}</h1>
+                        <button className='btn btn-danger'>Play <i class="fa-solid fa-play bg-transparent ms-1"></i></button>
+                        <button className='btn border-white ms-3 more'>More Info <i class="fa-solid fa-caret-down bg-transparent ms-1"></i></button>
+                        <h5 style={{color:"white",background:"transparent",fontSize:"1rem",paddingTop:"1rem"}}>{movieDetails.overview?.slice(0,200)}...</h5>
+                    </div>
+
+            </div>
+        </div>
+    )
+}
+
+export default Banner

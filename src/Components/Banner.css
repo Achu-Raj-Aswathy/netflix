@@ -1,0 +1,17 @@
+.banner_content {
+    padding-top: 300px;
+    padding-left: 3rem;
+    width: 35rem;
+    background: transparent;
+
+
+
+}
+.more:hover{
+    color: black;
+    background-color: white;
+}
+.more{
+    color: white;
+}
+
